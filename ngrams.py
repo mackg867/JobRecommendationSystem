@@ -1,4 +1,3 @@
-import nltk
 from nltk import bigrams,ngrams
 from nltk.corpus import stopwords
 from nltk.tokenize import RegexpTokenizer
@@ -18,8 +17,7 @@ def remove_punc(text):
     return " ".join(text)
     
 def get_bigrams(text):
-    """Input: A string variable 
-    Output: A set of string tuples that represent the bigrams of the input"""
+    """Returns a set of string tuples"""
     grams = bigrams(text.split())
     return_val = []
     for i,gram in enumerate(grams):
@@ -34,13 +32,6 @@ def get_jiccard(set1,set2):
     Output: The Jiccard index of the sets which is contained in [0,1]"""
     return len(set1 & set2) / float(len(set1 | set2))
     
-def score_file(file_to_score,base_post):
-    text = get_text(file_to_score)
-    text = remove_stopwords(text)
-    text = remove_punc(text)
-    grams = get_bigrams(text) | get_unigrams(text)
-    return get_jiccard(grams,base_post)
-    
 def score_text(text,base_post):
     text = remove_stopwords(text)
     text = remove_punc(text)
@@ -53,14 +44,6 @@ def build_ideal_post():
     text = get_text("ideal_post")
     text = remove_stopwords(text)
     text = remove_punc(text)
-    grams = get_bigrams(text)
-    grams = grams | get_unigrams(text)
+    grams = get_bigrams(text) | get_unigrams(text)
     return grams    
- 
-def run_ngrams():
-    text = get_text("job")
-    text = remove_stopwords(text)
-    text = remove_punc(text)
-    grams = get_bigrams(text)
-    return grams
 
