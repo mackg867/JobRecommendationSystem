@@ -28,8 +28,7 @@ def get_unigrams(text):
     return set(text.split())
     
 def get_jiccard(set1,set2):
-    """Input: Two sets of string tuples
-    Output: The Jiccard index of the sets which is contained in [0,1]"""
+    """Input: Two sets of string tuples"""
     return len(set1 & set2) / float(len(set1 | set2))
     
 def score_text(text,base_post):
@@ -39,8 +38,8 @@ def score_text(text,base_post):
     return get_jiccard(grams,base_post)
 
 def build_ideal_post():
-    """Builds the job posting that is used as the "ideal" job 
-    posting.  All candidate postings are compared to this one."""
+    """Creates a bigram and unigram model of my ideal 
+    job posting"""
     text = get_text("ideal_post")
     text = remove_stopwords(text)
     text = remove_punc(text)
